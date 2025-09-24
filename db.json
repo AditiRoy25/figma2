@@ -1,0 +1,82 @@
+{
+  "users": [
+    {
+      "id": "3bfe",
+      "Firstname": "aditi",
+      "Lastname": "roy",
+      "email": "aditiroyinfo.2016@gmail.com",
+      "password": "Aa@123",
+      "confirmPassword": "Aa@123",
+      "terms": true
+    }
+  ],
+  "products": [],
+  "cart": [
+    {
+      "id": "183d",
+      "Itemid": 2,
+      "count": 1
+    },
+    {
+      "id": "3690",
+      "Itemid": 3,
+      "count": 1
+    }
+  ],
+  "menuData": [
+    {
+      "id": 1,
+      "name": "Indian",
+      "desc": "Lorem Ipsum is simply dummy text.",
+      "price": 250
+    },
+    {
+      "id": 2,
+      "name": "Mexican",
+      "desc": "Lorem Ipsum is simply dummy text.",
+      "price": 99
+    },
+    {
+      "id": 3,
+      "name": "Italian",
+      "desc": "Lorem Ipsum is simply dummy text.",
+      "price": 175
+    },
+    {
+      "id": 4,
+      "name": "Chinese",
+      "desc": "Lorem Ipsum is simply dummy text.",
+      "price": 156
+    },
+    {
+      "id": 5,
+      "name": "Bengali",
+      "desc": "Lorem Ipsum is simply dummy text.",
+      "price": 159
+    },
+    {
+      "id": 6,
+      "name": "Arabian",
+      "desc": "Lorem Ipsum is simply dummy text.",
+      "price": 135
+    },
+    {
+      "id": 7,
+      "name": "Japanese",
+      "desc": "Lorem Ipsum is simply dummy text.",
+      "price": 450
+    },
+    {
+      "id": 8,
+      "name": "Fried Chicken",
+      "desc": "Lorem Ipsum is simply dummy text.",
+      "price": 199
+    },
+    {
+      "id": 9,
+      "name": "Kolkata Style Roll",
+      "desc": "Lorem Ipsum is simply dummy text.",
+      "price": 85
+    }
+  ]
+}
