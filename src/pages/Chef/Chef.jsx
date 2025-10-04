@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import chef1 from "../../assets/chef/chef1.png";
 import chef2 from "../../assets/chef/chef2.png";
@@ -17,6 +17,7 @@ import MenuCard from "../../components/MenuCard";
 import CheifCard from "../../components/CheifCard";
 import { useLocation } from "react-router-dom";
 import Header from "../../components/Header";
+import ChefContext from "../../hooks/context/chef/ChefContext";
 
 const chefImg = [
   { id: 1, image: chef1 },
@@ -34,6 +35,7 @@ const chefImg = [
 ];
 const Chef = () => {
     const location=useLocation()
+    const { chefData } = useContext(ChefContext);
   return (
     <Box
       sx={{
@@ -67,7 +69,7 @@ const Chef = () => {
         </Typography>
 
         <Grid container columns={12} spacing={5}>
-          {chefImg.map((item) => (
+          {chefData.map((item) => (
             <Grid key={item.id} size={{ xs: 12, sm: 6, md: 3 }}>
               <CheifCard  value={item} />
             </Grid>
