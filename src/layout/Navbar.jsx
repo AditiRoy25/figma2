@@ -14,16 +14,23 @@ import Cookies from "js-cookie";
 import { useEffect } from "react";
 import CartContext from "../hooks/context/cart/CreatecartContext";
 import api from "../Api/Api";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import WishContext from "../hooks/context/WishlistList/CreateWishContex";
+import AuthContext from "../hooks/context/Auth/CreateAuthContext";
+
 export default function Navbar() {
+   const { user, logout } = useContext(AuthContext);
   const navigation = useNavigate();
   const [open, setOpen] = useState(false);
   const handleClose = () => {
     setOpen(false);
   };
   const { cart } = useContext(CartContext);
+  const { wishCount } = useContext(WishContext)
   const [loginData, setLoginData] = useState(null);
   const [navScreen, setNavScreen] = useState("/");
   const [cartCount, setCartCount] = useState(0);
+  
 
   useEffect(() => {
     const data = Cookies.get("loginData");
@@ -134,23 +141,54 @@ export default function Navbar() {
             </Typography>
           </Box>
 
-          <Box
+          {/* <Box
             sx={{
               justifyContent: "space-evenly",
               display: "flex",
               alignItems: "center",
               margin: "5px",
             }}
-          >
+          > */}
             {/* <Box
               onClick={() => {
                 navigation("/AddToCard":handleClose());
               }}
             > */}
+ <Box sx={{ display: "flex", alignItems: "center" }}>
+            
+           
+            <Box sx={{ position: "relative", marginRight: "20px" }}>
+              <FavoriteIcon sx={{ color: "text.secondary" }} />
+              {wishCount > 0 && (
+                <Box
+                  sx={{
+                    position: "absolute",
+                    top: "-5px",
+                    right: "-10px",
+                    width: "20px",
+                    height: "20px",
+                    borderRadius: "50%",
+                    backgroundColor: (theme) => theme.palette.primary.main,
+                    alignItems: "center",
+                    justifyContent: "center",
+                    display: "flex",
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      color: (theme) => theme.palette.text.primary,
+                      fontSize: "12px",
+                    }}
+                  >
+                    {wishCount}
+                  </Typography>
+                </Box>
+              )}
+            </Box>
 
             <Box
               onClick={() => {
-                // handleClose();
+               
                 if (loginData) {
                   navigation("/AddToCard");
                 } else {
@@ -160,6 +198,7 @@ export default function Navbar() {
               }}
               sx={{position:'relative',marginRight:'20px'}}
             >
+
               <ShoppingBagIcon sx={{ color: "text.primary",width:'24px' }} />
               {cartCount > 0 ?
               <Box sx={{position:'absolute',top:'-5px',right:'-10px',width:'20px',height:'20px',borderRadius:'50%', backgroundColor: (theme) => theme.palette.primary.main,alignItems:'center',justifyContent:'center',display:'flex'}}>
@@ -196,13 +235,15 @@ export default function Navbar() {
                 onClick={() => {
                   Cookies.remove("loginData");
                   setLoginData(null);
+                  logout()
                   navigation("/");
                 }}
               >
                 LOGOUT
               </Button>
             )}
-            <Button
+            {user?.email =="aditiroyinfo.2016@gmail.com" && (
+               <Button
               sx={{
                 height: "38px",
                 width: "70px",
@@ -216,6 +257,8 @@ export default function Navbar() {
             >
               admin
             </Button>
+            )}
+          
           </Box>
           <LoginModal
             open={open}

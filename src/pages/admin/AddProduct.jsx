@@ -1,13 +1,14 @@
-import { Typography, Box, Button, MenuItem, InputLabel } from "@mui/material";
-import { useForm, Controller } from "react-hook-form";
+import { Typography, Box, Button, InputLabel } from "@mui/material";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { toast } from "sonner";
 import Dynamicinput from "../../Components/Dynamicinput";
 import { toBase64 } from "../../hooks/utils/helper";
-// import axios from "axios";
- 
 import api from "../../Api/Api";
+import { useContext } from "react";
+import CategoryContext from "../../hooks/context/category/CategoryContext";
+import DynamicDropdown from "../../components/DynamicDropdown";
 
 const schema = yup.object().shape({
   title: yup
@@ -27,6 +28,7 @@ const schema = yup.object().shape({
 });
 
 const AddProduct = () => {
+  const { categories } = useContext(CategoryContext); // ✅ get dynamic categories
   const {
     handleSubmit,
     reset,
@@ -43,14 +45,8 @@ const AddProduct = () => {
       image: "",
     },
   });
-
   const onSubmit = async (data) => {
-    console.log(data);
-    // let base64img ="";
-    // if(data.image.length> 0){
     let base64img = await toBase64(data.image);
-    // }
-    console.log(base64img);
     const latestData = {
       title: data.title,
       description: data.description,
@@ -58,71 +54,76 @@ const AddProduct = () => {
       price: data.price,
       image: base64img,
     };
+
     try {
       await api.post("/products", latestData);
-      toast.success("Added");
+      toast.success("Product Added Successfully!");
       reset();
     } catch (error) {
-      console.log("error", error);
+      console.log("Error:", error);
     }
   };
 
   return (
-    <>
-      <Box
-        component="form"
-        onSubmit={handleSubmit(onSubmit)}
-        sx={{
-          backgroundColor: "#60b1ebff",
-          display: "flex",
-          flexDirection: "column",
-          gap: 2,
-        }}
-      >
-        <Dynamicinput
-          name="title"
-          label="Product Name"
-          control={control}
-          errors={errors}
-        />
+    <Box
+      component="form"
+      onSubmit={handleSubmit(onSubmit)}
+      sx={{
+        backgroundColor: "#c47130b0",
+        display: "flex",
+        flexDirection: "column",
+        gap: 2,
+        padding: 4,
+        borderRadius:'12px'
+      }}
+    >
+      <Dynamicinput
+        name="title"
+        label="Product Name"
+        control={control}
+        errors={errors}
+      />
 
-        <Dynamicinput
-          name="description"
-          label="Description"
-          control={control}
-          errors={errors}
-          multiline
-          rows={3}
-        />
-        <Dynamicinput
-          name="category"
-          label="Catrgory"
-          control={control}
-          errors={errors}
-        />
-        <Dynamicinput
-          name="price"
-          label="Price"
-          control={control}
-          errors={errors}
-        />
+      <Dynamicinput
+        name="description"
+        label="Description"
+        control={control}
+        errors={errors}
+        multiline
+        rows={3}
+      />
 
-        <Box sx={{ mt: 2 }}>
-          <InputLabel>Product Image</InputLabel>
-          <input
-            type="file"
-            onChange={(e) => {
-              const file = e.target.files[0];
-              setValue("image", file);
-            }}
-          />
-        </Box>
+      {/* 👇 Dynamic Category Dropdown */}
+     <DynamicDropdown
+        name="category"
+        label="Category"
+        control={control}
+        errors={errors}
+        options={categories} 
+      />
 
-        <Button type="submit" variant="contained" color="primary">
-          Save
-        </Button>
+      <Dynamicinput
+        name="price"
+        label="Price"
+        control={control}
+        errors={errors}
+      />
+
+      <Box sx={{ mt: 2 }}>
+        <InputLabel>Product Image</InputLabel>
+        <input
+          type="file"
+          onChange={(e) => {
+            const file = e.target.files[0];
+            setValue("image", file);
+          }}
+        />
       </Box>
-    </>
+
+      <Button type="submit" variant="contained" color="primary">
+        Save
+      </Button>
+    </Box>
   );
 };
 

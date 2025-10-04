@@ -75,6 +75,7 @@ const Login = ({navScreen,onClose}) => {
             Cookies.set("loginData", JSON.stringify(matchEmail)); 
             reset();
             navigate(navScreen?navScreen:'/'); 
+            onClose()
           } else {
             toast.error("Password is incorrect");
           }

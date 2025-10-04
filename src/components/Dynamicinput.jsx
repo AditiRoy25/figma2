@@ -70,6 +70,9 @@ const Dynamicinput = ({
             ),
           }}
           {...rest}
+          sx={{
+            color:'black'
+          }}
         />
       )}
     />

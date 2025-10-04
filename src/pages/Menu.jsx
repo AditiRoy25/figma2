@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Grid, Box, Typography, Button, Stack } from "@mui/material";
 import MenuCard from "../components/MenuCard";
 
@@ -13,6 +13,7 @@ import img8 from "../assets/cardimg/img8.png";
 import img9 from "../assets/cardimg/img9.png";
 import Header from "../components/Header";
 import { useLocation } from "react-router-dom";
+import CategoryContext from "../hooks/context/category/CategoryContext";
 
 const menuData = [
   {
@@ -80,17 +81,10 @@ const menuData = [
   },
 ];
 
-const categories = [
-  { id: 1, name: "Indian" },
-  { id: 2, name: "Mexican" },
-  { id: 3, name: "Italian" },
-  { id: 4, name: "Chinese" },
-  { id: 5, name: "Bengali" },
-  { id: 6, name: "Arabian" },
-  { id: 7, name: "Japanese" },
-];
+
 
 export default function Menu() {
+  const { categories } = useContext(CategoryContext);
   const location=useLocation()
   console.log('location', location)
   return (

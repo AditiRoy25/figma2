@@ -16,10 +16,10 @@ const WrapperAdmin = () => {
 
 <Box>
 <Navbar/>
-
-
-<Box><Sidebar/></Box>
-<Box><Outlet/></Box>
+<Sidebar/>
+ <Box component="main" sx={{ flexGrow: 1, p: 3, mt: "64px", ml: "240px" }}>
+          <Outlet />
+        </Box>
 </Box>
 </Suspense>
 

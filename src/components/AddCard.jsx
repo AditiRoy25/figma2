@@ -12,7 +12,6 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 
-
 const AddCard= ({ item ,oriantation}) => {
   const [quantity, setQuantity] = useState(item.qty);
 

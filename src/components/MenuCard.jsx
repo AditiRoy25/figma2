@@ -6,16 +6,21 @@ import {
   Typography,
   Button,
   CardActions,
+  IconButton,
 } from "@mui/material";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import CartContext from "../hooks/context/cart/CreatecartContext";
 import LoginModal from "./LoginModal";
 import Cookies from "js-cookie";
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import { useNavigate } from "react-router-dom";
+import WishContext from "../hooks/context/WishlistList/CreateWishContex";
 
 export default function MenuCard({ value }) {
   const { addtoCart } = useContext(CartContext);
   const [open, setOpen] = useState(false);
   const [loginData, setLoginData] = useState(null);
+ const { addtoWish } = useContext(WishContext);
 
   useEffect(() => {
     const data = Cookies.get("loginData");
@@ -31,6 +36,7 @@ export default function MenuCard({ value }) {
         mx: "auto",
         backgroundColor: (theme) => theme.palette.background.default,
         color: (theme) => theme.palette.text.primary,
+        position:"relative"
       }}
     >
       <CardMedia
@@ -38,12 +44,29 @@ export default function MenuCard({ value }) {
         height="180"
         image={value.image}
         alt={value.name}
+        // sx={{position:"relative"}}
       />
-      <CardContent sx={{ color: (theme) => theme.palette.text.secondary }}>
+      <CardContent sx={{ color: (theme) => theme.palette.text.secondary ,}}>
+         <IconButton
+        size="small"
+        sx={{
+          position: "absolute",
+          top: 1,
+          right:2,
+          color: "text.secondary",
+          "&:hover": { color: "red" },
+        }}
+        onClick={()=>addtoWish(value.id)}
+      >
+        <FavoriteIcon fontSize="small" sx={{color: "text.secondary"}}/>
+      </IconButton>
+      {/* <IconButton sx={{}}><FavoriteIcon/></IconButton>
+       */}
+
         <Typography gutterBottom variant="h6">
           {value.name}
         </Typography>
-        <Typography variant="body2" color="text.primary" mb={1}>
+        <Typography variant="body2" color="text.secondary" mb={1}>
           {value.desc}
         </Typography>
         <Typography variant="subtitle1" fontWeight="bold" color="primary">

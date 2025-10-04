@@ -19,6 +19,9 @@ import WrapperAdmin from "../layout/admin/WrapperAdmin";
 import AddProduct from "../pages/admin/AddProduct";
 import ErrorBoundery from "../components/ErrorBoundery";
 import Dashboard from "../pages/admin/Dashboard";
+import Addchef from "../pages/admin/Addchef";
+import Userlist from "../pages/admin/Userlist";
+import Product from "../pages/admin/Product";
 
 const Routes = createBrowserRouter([
   {
@@ -105,6 +108,10 @@ const Routes = createBrowserRouter([
             path: "product/add",
             element: <AddProduct />,
           },
+
+          { element: <Product/>, path: "productlist" },
+          { element: <Addchef />, path: "addchef" },
+          { element: <Userlist />, path: "userlist" },
         ],
       },
     ],
@@ -112,3 +119,33 @@ const Routes = createBrowserRouter([
 ]);
 
 export default Routes;
+
+//         {
+//   path: "/admin",
+//   element: <Protectedroute />,
+//   children: [
+//     {
+//       path: "",
+//       element: <WrapperAdmin />,
+//       children: [
+//         {
+//           path: "dashboard",
+//           element: <Dashboard />,
+//           errorElement: <ErrorBoundery />,
+//         },
+//         {
+//           path: "product",
+//           element: <Product />,
+//         },
+//         {
+//           path: "product/add",
+//           element: <AddProduct />,
+//         },
+//         {
+//           path: "product/edit/:id",
+//           element: <AddProduct />,
+//         },
+//       ],
+//     },
+//   ],
+// },
